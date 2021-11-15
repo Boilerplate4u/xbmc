@@ -407,6 +407,12 @@ void CDVDSubtitlesLibass::ApplyStyle(style subStyle, renderOpts opts)
       else
         style->MarginV = static_cast<int>(subStyle.marginVertical * scale);
     }
+      
+    //LAHA start Debug
+    {
+    
+    }
+    //LAHA end DEBUG
 
     // Set the vertical alignment
     if (subStyle.alignment == FontAlignment::TOP_LEFT ||

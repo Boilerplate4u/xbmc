@@ -733,7 +733,48 @@ void CRenderManager::Render(bool clear, DWORD flags, DWORD alpha, bool gui)
     m_pRenderer->GetVideoRect(src, dst, view);
     m_overlays.SetVideoRect(src, dst, view);
     m_overlays.Render(m_presentsource);
+      
 
+    /*
+     * //LAHA END
+     */
+    {
+      int subAlign = CServiceBroker::GetSettingsComponent()->GetSettings()->GetInt(
+          CSettings::SETTING_SUBTITLES_ALIGN);
+      std::string alignmodes[] = {"MANUAL", "BOTTOM_INSIDE", "BOTTOM_OUTSIDE", "TOP_INSIDE", "TOP_OUTSIDE"};
+      std::string alignmode = alignmodes[subAlign];
+      
+      RESOLUTION_INFO res;
+      res = CServiceBroker::GetWinSystem()->GetGfxContext().GetResInfo(
+          CServiceBroker::GetWinSystem()->GetGfxContext().GetVideoResolution());
+      int position = 100.0 - (double)(res.iSubtitles - res.Overscan.top) * 100 / res.iHeight;
+
+      
+      //m_debugRenderer.Initialize(); //LAHA
+      m_debugRenderer.Flush();
+      
+      m_debugRenderer.PrintScreen("iHeight: %d, iWidth: %d", res.iHeight, res.iWidth);
+      m_debugRenderer.PrintScreen("iSHeight %d, iSWidth %d", res.iScreenHeight, res.iScreenWidth);
+      m_debugRenderer.PrintScreen("iSubtitles: %d, subAlign %s, pos %d",  res.iSubtitles, alignmode.c_str(), position);
+      
+      //m_debugRenderer.PrintScreen ("strMode: %s, strOutput: %s, strId: %s", res.strMode.c_str(), res.strOutput.c_str(), res.strId.c_str());
+      
+      //m_debugRenderer.PrintScreen ("Overscan left: %d, right %d, top: %d, bottom %d, ", res.Overscan.left, res.Overscan.right, res.Overscan.top, res.Overscan.bottom);
+      
+  
+      //m_debugRenderer.PrintScreen("Lars %d %s %d", 10, "str1", 20); //LAHA
+      //m_debugRenderer.PrintScreen("Lars %d %s %d", 30, "str2", 40); //LAHA
+
+    
+      m_debugRenderer.Render(src, dst, view);
+      m_debugTimer.Set(1000);
+      m_renderedOverlay = true;
+    }
+    /*
+     * //LAHA END
+     */
+
+    
     if (m_renderDebug)
     {
       if (m_renderDebugVideo)

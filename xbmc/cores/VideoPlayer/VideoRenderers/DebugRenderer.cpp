@@ -97,6 +97,40 @@ void CDebugRenderer::SetInfo(DEBUG_INFO_VIDEO& video, DEBUG_INFO_RENDER& render)
   m_adapter->AddSubtitle(render.videoOutput.c_str(), 0., 5000000.);
 }
 
+/*
+ * //LAHA start
+ */
+void CDebugRenderer::PrintScreen(const std::string& text)   //LAHA
+{
+  //if (!m_isInitialized)
+  //  return;
+  
+  /**/
+  if (!m_isInitialized)
+    Initialize();
+  /**/
+  
+  //m_adapter->FlushSubtitles();
+  m_adapter->AddSubtitle(text.c_str(), 0., 5000000.);
+}
+void CDebugRenderer::PrintScreen(char *fmt, ...)   //LAHA
+{
+  char buffer[256];
+
+  va_list args;
+  va_start (args, fmt);
+
+  vsnprintf (buffer, 256, fmt, args);
+    
+  PrintScreen (std::string(buffer));
+
+  va_end (args);
+}
+/*
+ * LAHA end
+ */
+
+
 void CDebugRenderer::Render(CRect& src, CRect& dst, CRect& view)
 {
   if (!m_isInitialized)

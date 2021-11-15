@@ -386,9 +386,9 @@ COverlay* CRenderer::ConvertLibass(CDVDOverlayLibass* o,
       CSettings::SETTING_SUBTITLES_ALIGN);
 
   // Set position of subtitles based on video calibration settings
-  if (subAlign == SUBTITLE_ALIGN_MANUAL)
+  // if (subAlign == SUBTITLE_ALIGN_MANUAL) // LAHA
   {
-    rOpts.usePosition = true;
+    // rOpts.usePosition = true; //LAHA
     RESOLUTION_INFO res;
     res = CServiceBroker::GetWinSystem()->GetGfxContext().GetResInfo(
         CServiceBroker::GetWinSystem()->GetGfxContext().GetVideoResolution());

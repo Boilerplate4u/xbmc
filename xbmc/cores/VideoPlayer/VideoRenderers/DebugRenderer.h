@@ -27,6 +27,8 @@ public:
   void SetInfo(DEBUG_INFO_PLAYER& info);
   void SetInfo(DEBUG_INFO_VIDEO& video, DEBUG_INFO_RENDER& render);
   void Render(CRect& src, CRect& dst, CRect& view);
+  void PrintScreen(const std::string& text);    //LAHA
+  void PrintScreen(char *fmt, ...);    //LAHA
   void Flush();
 
 protected:
